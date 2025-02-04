@@ -8,7 +8,7 @@ resource "aws_subnet" "PrivateSubnet" {
   }
 }
 
-# Route Table for Private Subnet (Without Route Deletion)
+# Route Table for Private Subnet (No Route Deletion)
 resource "aws_route_table" "PrivateRT" {
   vpc_id = data.aws_vpc.vpc.id
 }
@@ -34,7 +34,7 @@ resource "aws_security_group" "SG" {
   }
 }
 
-# Lambda Function Setup
+# Lambda Function Setup (No Route Deletion)
 data "archive_file" "lambda" {
   type        = "zip"
   source_file = "lambda.py"
