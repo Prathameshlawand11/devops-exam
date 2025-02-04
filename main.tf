@@ -29,11 +29,11 @@ resource "aws_route_table" "PrivateRT" {
 }
 
 
-resource "aws_route_table_association" "PublicToPublic" {
-  subnet_id      = aws_subnet.PublicSubnet.id
-  route_table_id = aws_route_table.PublicRT.id
-  depends_on     = [aws_subnet.PublicSubnet, aws_route_table.PublicRT]
-}
+#resource "aws_route_table_association" "PublicToPublic" {
+#  subnet_id      = aws_subnet.PublicSubnet.id
+#  route_table_id = aws_route_table.PublicRT.id
+#  depends_on     = [aws_subnet.PublicSubnet, aws_route_table.PublicRT]
+#}
 
 resource "aws_route_table_association" "PrivateToPrivate" {
   subnet_id      = aws_subnet.PrivateSubnet.id
