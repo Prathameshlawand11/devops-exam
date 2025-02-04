@@ -1,8 +1,5 @@
 pipeline{
     agent any
-     environment {
-    SUBNET_ID = sh(returnStdout: true, script: 'terraform output -raw subnet_id').trim()
-    }
  
     stages{
         stage("TF Init"){
@@ -29,6 +26,7 @@ pipeline{
                 sh 'terraform apply -auto-approve'
             }
         }
+
         stage("Invoke Lambda"){
             steps{
                 echo "Invoking your AWS Lambda"
