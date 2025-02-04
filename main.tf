@@ -18,14 +18,6 @@ resource "aws_subnet" "PrivateSubnet" {
   }
 }
 
-# Route Tables
-resource "aws_route_table" "PublicRT" {
-  vpc_id = data.aws_vpc.vpc.id
-}
-
-resource "aws_route_table" "PrivateRT" {
-  vpc_id = data.aws_vpc.vpc.id
-}
 
 
 # Create Route in Public Route Table 
