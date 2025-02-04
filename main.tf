@@ -34,7 +34,6 @@ resource "aws_security_group" "SG" {
   }
 }
 
-
 # Lambda Function Setup
 data "archive_file" "lambda" {
   type        = "zip"
