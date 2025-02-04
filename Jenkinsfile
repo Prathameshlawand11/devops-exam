@@ -7,7 +7,7 @@ pipeline{
         stage("TF Init"){
             steps{
                 echo "Executing Terraform Init"
-                sh 'terraform init -migrate-state'
+                sh 'terraform init -reconfigure'
             }
         }
         stage("TF Validate"){
@@ -38,7 +38,7 @@ pipeline{
 
                  script {
           sh """
-            aws lambda invoke --function-name lambda_func3 --region ap-south-1 --cli-binary-format raw-in-base64-out  --payload  '{ "subnet_id":"${SUBNET_ID}" }' response.json  --log-type Tail
+            aws lambda invoke --function-name lambda_func4 --region ap-south-1 --cli-binary-format raw-in-base64-out  --payload  '{ "subnet_id":"${SUBNET_ID}" }' response.json  --log-type Tail
           """
           output = readFile('response.json')
           
