@@ -1,7 +1,7 @@
 # Public Subnet
 resource "aws_subnet" "PublicSubnet" {
   vpc_id     = data.aws_vpc.vpc.id
-  cidr_block = "10.0.165.0/24"
+  cidr_block = "10.0.168.0/24"
 
   tags = {
     Name = "PublicSubnet"
@@ -11,7 +11,7 @@ resource "aws_subnet" "PublicSubnet" {
 # Private Subnet
 resource "aws_subnet" "PrivateSubnet" {
   vpc_id     = data.aws_vpc.vpc.id
-  cidr_block = "10.0.166.0/24"
+  cidr_block = "10.0.169.0/24"
 
   tags = {
     Name = "PrivateSubnet"
@@ -57,8 +57,8 @@ resource "aws_route" "RouteInPrivateRT_TO_NATGW" {
 }
 
 # Security Group
-resource "aws_security_group" "Sgrp5" {
-  name        = "Sgrp5"
+resource "aws_security_group" "Sgrp6" {
+  name        = "Sgrp6"
   description = "Security Group to allow traffic from the VPC"
   vpc_id      = data.aws_vpc.vpc.id
 
@@ -84,11 +84,11 @@ data "archive_file" "lambda" {
   output_path = "lambda.zip"
 }
 
-resource "aws_lambda_function" "lambda_func5" {
+resource "aws_lambda_function" "lambda_func6" {
   filename         = data.archive_file.lambda.output_path
-  function_name    = "lambda_func5"
+  function_name    = "lambda_func6"
   role             = data.aws_iam_role.lambda.arn
-  handler          = "lambda.lambda_func5"
+  handler          = "lambda.lambda_func6"
   runtime          = "python3.9"
   source_code_hash = data.archive_file.lambda.output_base64sha256
 }
