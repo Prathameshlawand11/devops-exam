@@ -1,33 +1,3 @@
-resource "aws_iam_role_policy" "lambda_policy" {
-  name = "lambda-policy"
-  role = aws_iam_role.lambda.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "execute-api:Invoke",
-          "ec2:DescribeInstances",
-          "ec2:CreateTags",
-          "ec2:DeleteTags",
-          "s3:GetObject"
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-      {
-        Action = [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      }
-    ]
-  })
-}
 
 
 
