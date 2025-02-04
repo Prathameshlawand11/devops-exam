@@ -53,9 +53,10 @@ resource "aws_route" "RouteInPublicRT_TO_IGW" {
 resource "aws_route" "RouteInPrivateRT_TO_NATGW" {
   route_table_id         = aws_route_table.PrivateRT.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = data.aws_nat_gateway.nat.id  
-  depends_on             = [aws_route_table.PrivateRT]
+  gateway_id             = data.aws_nat_gateway.nat.id
+  create_before_destroy  = true  
 }
+
 
 # Security Group
 resource "aws_security_group" "SG" {
