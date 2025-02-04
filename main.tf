@@ -18,14 +18,8 @@ resource "aws_subnet" "PrivateSubnet" {
   }
 }
 
-
-
-# Create Route in Public Route Table 
-resource "aws_route" "RouteInPublicRT_TO_IGW" {
-  route_table_id         = aws_route_table.PublicRT.id
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = data.aws_nat_gateway.nat.id 
-  depends_on             = [aws_route_table.PublicRT]
+resource "aws_route_table" "PrivateRT" {
+  vpc_id = data.aws_vpc.vpc.id
 }
 
 # Create Route in Private Route Table to NAT Gateway
