@@ -27,21 +27,8 @@ resource "aws_route_table" "PrivateRT" {
   vpc_id = data.aws_vpc.vpc.id
 }
 
-# Associate Public Subnet with Public Route Table (only if it's not already associated)
-resource "aws_route_table_association" "PublicToPublic" {
-  subnet_id      = aws_subnet.PublicSubnet.id
-  route_table_id = aws_route_table.PublicRT.id
-  depends_on     = [aws_subnet.PublicSubnet, aws_route_table.PublicRT]
-}
 
-# Associate Private Subnet with Private Route Table (only if it's not already associated)
-resource "aws_route_table_association" "PrivateToPrivate" {
-  subnet_id      = aws_subnet.PrivateSubnet.id
-  route_table_id = aws_route_table.PrivateRT.id
-  depends_on     = [aws_subnet.PrivateSubnet, aws_route_table.PrivateRT]
-}
-
-# Create Route in Public Route Table (if using IGW)
+# Create Route in Public Route Table 
 resource "aws_route" "RouteInPublicRT_TO_IGW" {
   route_table_id         = aws_route_table.PublicRT.id
   destination_cidr_block = "0.0.0.0/0"
