@@ -46,7 +46,7 @@ data "archive_file" "lambda" {
 resource "aws_lambda_function" "lambda_handler" {
   filename         = data.archive_file.lambda.output_path
   function_name    = "lambda_handler"
-  role             = data.aws_iam_role.lambda.arn
+  role             = data.aws_iam_role.lambda.name
   handler          = "lambda.lambda_handler"
   runtime          = "python3.9"
   source_code_hash = data.archive_file.lambda.output_base64sha256
