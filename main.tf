@@ -54,7 +54,6 @@ resource "aws_route" "RouteInPrivateRT_TO_NATGW" {
   route_table_id         = aws_route_table.PrivateRT.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = data.aws_nat_gateway.nat.id
-  create_before_destroy  = true  
 }
 
 
