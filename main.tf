@@ -42,6 +42,30 @@ resource "aws_security_group" "SG" {
   }
 }
 
+resource "aws_iam_policy" "jenkins_ec2_route_permissions" {
+  name        = "JenkinsEC2RoutePermissions"
+  description = "Policy that allows Jenkins to manage route tables and delete routes"
+  policy      = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = [
+          "ec2:DisassociateRouteTable",
+          "ec2:DeleteRoute",
+          "ec2:DescribeRouteTables",
+          "ec2:DescribeRoute"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+resource "aws_iam_role_policy_attachment" "jenkins_role_policy_attachment" {
+  role       = "jenkins-role"  # Replace with your actual role name
+  policy_arn = aws_iam_policy.jenkins_ec2_route_permissions.arn
+}
+
 # Lambda Function Setup
 data "archive_file" "lambda" {
   type        = "zip"
