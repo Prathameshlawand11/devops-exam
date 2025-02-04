@@ -27,6 +27,14 @@ pipeline{
             }
         }
 
+        stage("TF Destroy"){
+    steps{
+        echo "Executing Terraform Destroy"
+        sh 'terraform destroy -auto-approve'
+    }
+}
+
+
         stage("Invoke Lambda"){
             steps{
                 echo "Invoking your AWS Lambda"
