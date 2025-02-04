@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment {
     AWS_REGION = 'ap-south-1'
-    LAMBDA_FUNCTION_NAME = 'lambda_func4'
+    LAMBDA_FUNCTION_NAME = 'lambda_func5'
 }
     stages{
         stage("TF Init"){

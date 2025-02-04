@@ -4,7 +4,7 @@ import boto3
 import base64
 import requests
 
-def lambda_func3(event, context):
+def lambda_func5(event, context):
     payload = {
         "subnet_id": event['subnet_id'],
         "name": "Prathamesh Lawand",
