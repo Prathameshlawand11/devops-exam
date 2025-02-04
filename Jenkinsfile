@@ -5,7 +5,7 @@ pipeline{
         stage("TF Init"){
             steps{
                 echo "Executing Terraform Init"
-                sh 'terraform init'
+                sh 'terraform init -reconfigure'
             }
         }
         stage("TF Validate"){
