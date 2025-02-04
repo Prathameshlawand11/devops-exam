@@ -57,8 +57,8 @@ resource "aws_route" "RouteInPrivateRT_TO_NATGW" {
 }
 
 # Security Group
-resource "aws_security_group" "SG" {
-  name        = "SG"
+resource "aws_security_group" "Sgrp1" {
+  name        = "Sgrp1"
   description = "Security Group to allow traffic from the VPC"
   vpc_id      = data.aws_vpc.vpc.id
 
