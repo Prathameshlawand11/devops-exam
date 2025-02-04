@@ -1,5 +1,9 @@
 pipeline{
     agent any
+    environment {
+    AWS_REGION = 'ap-south-1'
+    LAMBDA_FUNCTION_NAME = 'lambda_func4'
+}
     stages{
         stage("TF Init"){
             steps{
@@ -37,9 +41,15 @@ pipeline{
                  script {
                     def subnetId = sh(script: 'terraform output -raw subnet_id', returnStdout: true).trim()
                     echo "Subnet ID: ${subnetId}"
-          sh """
-            aws lambda invoke --function-name lambda_func4 --region ap-south-1 --cli-binary-format raw-in-base64-out  --payload  '{ "subnet_id":"${SUBNET_ID}" }' response.json  --log-type Tail
-          """
+         sh """
+aws lambda invoke \
+--function-name ${LAMBDA_FUNCTION_NAME} \
+--region ${AWS_REGION} \
+--cli-binary-format raw-in-base64-out \
+--payload '{ "subnet_id":"${subnetId}" }' \
+response.json --log-type Tail
+"""
+
           output = readFile('response.json')
           
         }
