@@ -7,7 +7,8 @@ pipeline{
         stage("TF Init"){
             steps{
                 echo "Executing Terraform Init"
-                sh 'terraform init'
+                 sh 'rm -rf .terraform .terraform.lock.hcl'
+                sh 'terraform init -reconfigure'
             }
         }
         stage("TF Validate"){
