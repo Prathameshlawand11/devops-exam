@@ -33,19 +33,12 @@ resource "aws_route_table_association" "PublicToPublic" {
   subnet_id      = aws_subnet.PublicSubnet.id
   route_table_id = aws_route_table.PublicRT.id
   depends_on     = [aws_subnet.PublicSubnet, aws_route_table.PublicRT]
-   lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_route_table_association" "PrivateToPrivate" {
   subnet_id      = aws_subnet.PrivateSubnet.id
   route_table_id = aws_route_table.PrivateRT.id
   depends_on     = [aws_subnet.PrivateSubnet, aws_route_table.PrivateRT]
-   lifecycle {
-    prevent_destroy = true
-  }
-  
 }
 
 #resource "aws_route" "RouteInPublicRT_TO_IGW" {
@@ -60,10 +53,6 @@ resource "aws_route" "RouteInPrivateRT_TO_NATGW" {
   destination_cidr_block    = "0.0.0.0/0"
   gateway_id                = data.aws_nat_gateway.nat.id
   depends_on                = [aws_route_table.PrivateRT]
-
-   lifecycle {
-    prevent_destroy = true
-  }
 }
 
 #security group

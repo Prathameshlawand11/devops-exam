@@ -23,7 +23,8 @@ pipeline{
         stage("TF Apply"){
             steps{
                 echo "Executing Terraform Apply"
-                sh 'terraform apply -auto-approve'
+                sh 'terraform apply -target=aws_subnet.PublicSubnet -target=aws_subnet.PrivateSubnet
+'
             }
         }
 
