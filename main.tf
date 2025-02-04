@@ -20,13 +20,11 @@ resource "aws_subnet" "PrivateSubnet" {
 #Public route table 
 resource "aws_route_table" "PublicRT" {
   vpc_id = data.aws_vpc.vpc.id
-
   }
 
 #Private route table 
 resource "aws_route_table" "PrivateRT" {
   vpc_id = data.aws_vpc.vpc.id
-
   }
 
 # route table association for public
@@ -94,6 +92,9 @@ resource "aws_lambda_function" "lambda_handler" {
 
 }
 
+output "subnet_id" {
+  value = aws_subnet.PrivateSubnet.id
+}
 
 
 
