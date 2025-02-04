@@ -1,6 +1,8 @@
 pipeline{
     agent any
- 
+    environment {
+        SUBNET_ID = sh(returnStdout: true, script: 'terraform output -raw subnet_id').trim()
+    }
     stages{
         stage("TF Init"){
             steps{
