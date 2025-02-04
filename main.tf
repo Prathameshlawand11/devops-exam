@@ -1,11 +1,3 @@
-provider "aws" {
-  region = "ap-south-1"
-}
-
-# Data - VPC
-data "aws_vpc" "vpc" {
-  id = "vpc-xxxxxxxx"  # Replace with your VPC ID
-}
 
 # Public Subnet
 resource "aws_subnet" "PublicSubnet" {
