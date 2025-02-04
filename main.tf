@@ -41,17 +41,10 @@ resource "aws_route_table_association" "PrivateToPrivate" {
   route_table_id = aws_route_table.PrivateRT.id
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = data.aws_vpc.vpc.id
-  tags = {
-    Name = "PublicIGW"
-  }
-}
-
 resource "aws_route" "RouteInPublicRT_TO_IGW" {
   route_table_id            = aws_route_table.PublicRT.id
   destination_cidr_block    = "0.0.0.0/0"
-  gateway_id                 = aws_internet_gateway.igw.id
+  gateway_id                 = data.aws_nat_gateway.nat.id
   depends_on                = [aws_route_table.PublicRT]
 
 }
