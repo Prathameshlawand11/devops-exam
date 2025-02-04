@@ -20,15 +20,20 @@ resource "aws_subnet" "PrivateSubnet" {
   }
 }
 
-#Public route table 
 resource "aws_route_table" "PublicRT" {
   vpc_id = data.aws_vpc.vpc.id
+  tags = {
+    Name = "PublicRouteTable"
   }
+}
 
-#Private route table 
 resource "aws_route_table" "PrivateRT" {
   vpc_id = data.aws_vpc.vpc.id
+  tags = {
+    Name = "PrivateRouteTable"
   }
+}
+
 
 # route table association for public
 resource "aws_route_table_association" "PublicToPublic" {
