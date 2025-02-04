@@ -11,22 +11,18 @@ def lambda_handler(event, context):
         "email": "lawandprathamesh11@gmail.com"
     }
 
-   
     payload = json.dumps(payload)
 
-  
     request_header = {
         'X-Siemens-Auth': 'test',
         'Content-Type': 'application/json'
     }
-
 
     response = requests.post(
         'https://bc1yy8dzsg.execute-api.eu-west-1.amazonaws.com/v1/data',
         headers=request_header,
         data=payload
     )
-
 
     if response.status_code == 200:
         return {
