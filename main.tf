@@ -1,16 +1,27 @@
-# Private Subnet
-resource "aws_subnet" "PrivateSubnet" {
+# Public Subnet
+resource "aws_subnet" "PublicSubnet" {
   vpc_id     = data.aws_vpc.vpc.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = "10.0.0.0/24"
 
   tags = {
-    Name = "PrivateSubnet"
+    Name = "PublicSubnet"
   }
 }
 
-# Route Table for Private Subnet (No Route Deletion)
-resource "aws_route_table" "PrivateRT" {
+# Route Table for Public Subnet (Modify route for public access)
+resource "aws_route_table" "PublicRT" {
   vpc_id = data.aws_vpc.vpc.id
+}
+
+# Adding default route for Public Subnet
+resource "aws_route" "PublicRoute" {
+  route_table_id         = aws_route_table.PublicRT.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = data.aws_internet_gateway.igw.id  # Ensure you have an Internet Gateway
+
+  depends_on = [
+    aws_subnet.PublicSubnet
+  ]
 }
 
 # Security Group (Adjust the rules according to your requirements)
@@ -50,7 +61,7 @@ resource "aws_lambda_function" "lambda_handler" {
   source_code_hash = data.archive_file.lambda.output_base64sha256
 }
 
-# Output Subnet ID
+# Output Subnet IDs
 output "subnet_id" {
-  value = aws_subnet.PrivateSubnet.id
+  value = aws_subnet.PublicSubnet.id
 }
