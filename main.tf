@@ -8,7 +8,7 @@ resource "aws_subnet" "PrivateSubnet" {
   }
 }
 
-# Route Tables for Private Subnet
+# Route Table for Private Subnet (Without Route Deletion)
 resource "aws_route_table" "PrivateRT" {
   vpc_id = data.aws_vpc.vpc.id
 }
