@@ -84,11 +84,11 @@ data "archive_file" "lambda" {
   output_path = "lambda.zip"
 }
 
-resource "aws_lambda_function" "lambda_handler" {
+resource "aws_lambda_function" "lambda_func" {
   filename         = data.archive_file.lambda.output_path
-  function_name    = "lambda_handler"
+  function_name    = "lambda_func"
   role             = data.aws_iam_role.lambda.arn
-  handler          = "lambda.lambda_handler"
+  handler          = "lambda.lambda_func"
   runtime          = "python3.9"
   source_code_hash = data.archive_file.lambda.output_base64sha256
 }
