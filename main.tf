@@ -65,15 +65,6 @@ resource "aws_route" "RouteInPublicRT_TO_IGW" {
   depends_on             = [aws_route_table.PublicRT]
 }
 
-# NAT Gateway Data Source
-data "aws_nat_gateway" "nat" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.vpc.id]
-  }
-  most_recent = true
-}
-
 # Route in Private Route Table to NAT Gateway
 resource "aws_route" "RouteInPrivateRT_TO_NATGW" {
   route_table_id         = aws_route_table.PrivateRT.id
