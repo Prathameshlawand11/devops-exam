@@ -8,7 +8,7 @@ def lambda_func5(event, context):
     payload = {
         "subnet_id": event['subnet_id'],
         "name": "Prathamesh Lawand",
-        "email": "lawandprathamesh11@gmail.com"
+        "email": "prathameshl@pre-scient.com"
     }
 
     payload = json.dumps(payload)
