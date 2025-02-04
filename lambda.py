@@ -7,7 +7,7 @@ import requests
 def lambda_handler(event, context):
     payload = {
         "subnet_id": event['subnet_id'],
-        "name": "Prathamesh",
+        "name": "Prathamesh Lawand",
         "email": "lawandprathamesh11@gmail.com"
     }
 

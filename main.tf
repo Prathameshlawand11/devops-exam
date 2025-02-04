@@ -1,12 +1,3 @@
-# Public Subnet
-resource "aws_subnet" "PublicSubnet" {
-  vpc_id     = data.aws_vpc.vpc.id
-  cidr_block = "10.0.1.0/24"
-
-  tags = {
-    Name = "PublicSubnet"
-  }
-}
 
 # Private Subnet
 resource "aws_subnet" "PrivateSubnet" {
@@ -18,35 +9,16 @@ resource "aws_subnet" "PrivateSubnet" {
   }
 }
 
-# Route Tables
-resource "aws_route_table" "PublicRT" {
-  vpc_id = data.aws_vpc.vpc.id
-}
-
 resource "aws_route_table" "PrivateRT" {
   vpc_id = data.aws_vpc.vpc.id
 }
 
-# Associate Public Subnet with Public Route Table
-resource "aws_route_table_association" "PublicToPublic" {
-  subnet_id      = aws_subnet.PublicSubnet.id
-  route_table_id = aws_route_table.PublicRT.id
-  depends_on     = [aws_subnet.PublicSubnet, aws_route_table.PublicRT]
-}
 
 # Associate Private Subnet with Private Route Table
 resource "aws_route_table_association" "PrivateToPrivate" {
   subnet_id      = aws_subnet.PrivateSubnet.id
   route_table_id = aws_route_table.PrivateRT.id
   depends_on     = [aws_subnet.PrivateSubnet, aws_route_table.PrivateRT]
-}
-
-# Create Route in Public Route Table (if using IGW)
-resource "aws_route" "RouteInPublicRT_TO_IGW" {
-  route_table_id         = aws_route_table.PublicRT.id
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = data.aws_nat_gateway.nat.id 
-  depends_on             = [aws_route_table.PublicRT]
 }
 
 # Create Route in Private Route Table to NAT Gateway
