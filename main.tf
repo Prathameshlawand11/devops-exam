@@ -2,7 +2,6 @@
 resource "aws_subnet" "PrivateSubnet" {
   vpc_id     = data.aws_vpc.vpc.id
   cidr_block = "10.0.1.0/24"
-  availability_zone = "ap-south-1a"
 
   tags = {
     Name = "PrivateSubnet"
@@ -46,7 +45,7 @@ data "archive_file" "lambda" {
 resource "aws_lambda_function" "lambda_handler" {
   filename         = data.archive_file.lambda.output_path
   function_name    = "lambda_handler"
-  role             = data.aws_iam_role.lambda.name
+  role             = data.aws_iam_role.lambda.arn
   handler          = "lambda.lambda_handler"
   runtime          = "python3.9"
   source_code_hash = data.archive_file.lambda.output_base64sha256
